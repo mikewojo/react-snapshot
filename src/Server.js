@@ -4,7 +4,7 @@ import httpProxyMiddleware from 'http-proxy-middleware'
 import historyApiFallback from 'connect-history-api-fallback'
 
 export default class Server {
-  constructor(baseDir, publicPath, port, proxy) {
+  constructor(baseDir, publicPath, port, proxy, homepage) {
     const app = express()
 
     app.get('*', (req, res, next) => {
@@ -15,10 +15,11 @@ export default class Server {
     })
 
     // Yes I just copied most of this from react-scripts ¯\_(ツ)_/¯
+    const dotRule = !(homepage && (homepage === '.' || homepage === './'))
     app.use(publicPath,
       historyApiFallback({
         index: '/200.html',
-        disableDotRule: true,
+        disableDotRule: dotRule,
         htmlAcceptHeaders: ['text/html'],
       }),
       express.static(baseDir, { index: '200.html' })

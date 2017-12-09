@@ -21,7 +21,7 @@ export default () => {
   } = program.optsObj
 
   const pkg = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'package.json')))
-  const basename = ((p) => p.endsWith('/') ? p : p + '/')(pkg.homepage ? url.parse(pkg.homepage).pathname : '')
+  const basename = ((p) => p.endsWith('/') ? p : p + '/')(pkg.homepage ? pkg.homepage !== '.' && pkg.homepage !== './' ? url.parse(pkg.homepage).pathname : '/' : '')
 
   const options = Object.assign({
     include: [],
@@ -39,7 +39,7 @@ export default () => {
   const writer = new Writer(buildDirPath, outputDirPath)
   writer.move('index.html', '200.html')
 
-  const server = new Server(buildDirPath, basename, 0, pkg.proxy)
+  const server = new Server(buildDirPath, basename, 0, pkg.proxy, pkg.homepage)
   server.start().then(() => {
     const crawler = new Crawler(`http://${domain}:${server.port()}${basename}`, options.snapshotDelay, options)
     return crawler.crawl(({ urlPath, html }) => {
