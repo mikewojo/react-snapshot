@@ -1,9 +1,12 @@
 {
-  "name": "react-snapshot",
+  "name": "@mikewojo/react-snapshot",
   "version": "1.3.0",
-  "description": "",
+  "description": "A zero-configuration static pre-renderer for React apps. Starting by targeting Create React App (because it's great)",
   "main": "lib/index.js",
-  "repository": "geelen/react-snapshot",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikewojo/react-snapshot.git"
+  },
   "bin": {
     "react-snapshot": "./bin/react-snapshot.js"
   },
@@ -52,5 +55,11 @@
   ],
   "author": "Glen Maddern",
   "license": "ISC",
-  "homepage": "https://github.com/geelen/react-snapshot"
+  "homepage": "https://github.com/geelen/react-snapshot",
+  "bugs": {
+    "url": "https://github.com/geelen/react-snapshot/issues"
+  },
+  "directories": {
+    "lib": "lib"
+  }
 }
